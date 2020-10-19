@@ -1,11 +1,16 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Head from 'next/head'
 
-import 'src/styles/global.scss';
+import '~/styles/custom-bootstrap.scss'
+import '~/styles/global.scss'
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FMM Sensor</title>
+      </Head>
       <Component {...pageProps} />
     </>
-  );
+  )
 }
