@@ -1,0 +1,86 @@
+@import '~/styles/custom-bootstrap/variables.scss';
+
+.container {
+  padding: 32px 0;
+}
+
+.navUser {
+  display: flex;
+  text-align: right;
+  
+  p {
+    margin: 0;
+    
+    font-size: 1.1rem;
+  }
+
+  a {
+    margin: 0;
+  }
+
+  svg {
+    margin: 0 8px;
+    cursor: pointer;
+  }
+}
+
+.listContainer {
+  margin: 0 auto;
+  padding: 32px;
+  width: fit-content;
+
+  position: relative;
+}
+
+.accordion {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+
+  svg {
+    color: $primary;
+  }
+}
+
+.accordionTitle {
+  font-weight: bold;
+  font-size: 24px;
+
+  margin-bottom: 24px;
+}
+
+.cardHeader {
+  background: none;
+  cursor: pointer;
+  border: none;
+  
+  display: flex;
+  align-items: center;
+  
+  // font-weight: 600;
+  font-size: 1.3rem;
+  
+  svg {
+    margin-right: 16px;
+  }
+}
+
+.cardBody {
+  padding: 0rem 2.5rem;
+  padding-bottom: 0.6rem;
+}
+
+.info {
+  font-size: 1.1rem;  
+
+  div {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
+
+  svg {
+    margin-right: 8px;
+  }
+}
