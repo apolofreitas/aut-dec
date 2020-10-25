@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Nav, Card, Accordion } from 'react-bootstrap';
-import { FaRegFlag } from 'react-icons/fa';
-import { BiChip, BiUser } from 'react-icons/bi';
-import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { AiOutlineToTop } from 'react-icons/ai';
+import React, { useState } from 'react'
+import { Nav, Card, Accordion } from 'react-bootstrap'
+import { FaRegFlag } from 'react-icons/fa'
+import { BiChip, BiUser } from 'react-icons/bi'
+import { HiOutlineLocationMarker } from 'react-icons/hi'
+import { AiOutlineToTop } from 'react-icons/ai'
 
-import UserSettingsModal from './components/UserSettingsModal';
+import UserSettingsModal from './components/UserSettingsModal'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 export default function Home() {
   const arduinos = [
@@ -38,18 +38,18 @@ export default function Home() {
       sensorDistance: 4.32,
       info: 'informações adicionais',
     },
-  ];
+  ]
 
   const user = {
     name: 'nome do usuario',
-  };
+  }
 
-  const [showUserSettings, setShowUserSettings] = useState(false);
+  const [showUserSettings, setShowUserSettings] = useState(false)
 
   function handleLogout(
-    event: React.MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>
+    event: React.MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>,
   ) {
-    event.preventDefault();
+    event.preventDefault()
   }
 
   return (
@@ -103,7 +103,7 @@ export default function Home() {
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
-          );
+          )
         })}
       </Accordion>
 
@@ -112,5 +112,5 @@ export default function Home() {
         onHide={() => setShowUserSettings(false)}
       />
     </main>
-  );
+  )
 }

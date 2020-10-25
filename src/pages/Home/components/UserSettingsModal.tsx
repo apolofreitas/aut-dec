@@ -1,14 +1,14 @@
-import React, { FormEvent } from 'react';
-import { Modal, Form, Button, ModalProps } from 'react-bootstrap';
+import React, { FormEvent } from 'react'
+import { Modal, Form, Button, ModalProps } from 'react-bootstrap'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 export default function UserSettingsModal(
-  props: ModalProps & { onHide: () => void }
+  props: ModalProps & { onHide: () => void },
 ) {
   function handleSettingsSave(event: FormEvent) {
-    event.preventDefault();
-    props.onHide();
+    event.preventDefault()
+    props.onHide()
   }
 
   return (
@@ -53,5 +53,5 @@ export default function UserSettingsModal(
         </Form>
       </Modal.Body>
     </Modal>
-  );
+  )
 }
