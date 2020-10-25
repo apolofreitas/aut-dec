@@ -1,4 +1,4 @@
-@import '~/styles/custom-bootstrap/variables.scss';
+@import 'src/styles/custom-bootstrap/variables.scss';
 
 .container {
   padding: 32px 0;
@@ -7,10 +7,10 @@
 .navUser {
   display: flex;
   text-align: right;
-  
+
   p {
     margin: 0;
-    
+
     font-size: 1.1rem;
   }
 
@@ -53,13 +53,13 @@
   background: none;
   cursor: pointer;
   border: none;
-  
+
   display: flex;
   align-items: center;
-  
+
   // font-weight: 600;
   font-size: 1.3rem;
-  
+
   svg {
     margin-right: 16px;
   }
@@ -71,7 +71,7 @@
 }
 
 .info {
-  font-size: 1.1rem;  
+  font-size: 1.1rem;
 
   div {
     display: flex;

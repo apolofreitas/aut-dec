@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import React, { FormEvent } from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 import styles from './styles.module.scss'
