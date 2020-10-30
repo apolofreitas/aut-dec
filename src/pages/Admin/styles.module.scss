@@ -1,0 +1,46 @@
+@import 'src/styles/custom-bootstrap/variables.scss';
+
+.container {
+  height: 100vh;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 2rem;
+  margin-bottom: 2rem;
+
+  h4 {
+    color: $secondary;
+  }
+}
+
+.table {
+  display: block;
+  max-height: 500px;
+  width: fit-content !important;
+  overflow-y: auto;
+
+  thead {
+    color: $secondary;
+  }
+}
+
+.tableItemOptionContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tableItemOption {
+  margin: 0 0.25rem;
+}
+
+.addButton {
+  width: 100%;
+}
