@@ -11,12 +11,23 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <Form className={styles.form} onSubmit={handleFormSubmit}>
-        <Form.Group className={styles.textField} controlId="formUserInput">
-          <Form.Control size="lg" placeholder="Usuário" />
+        <Form.Group controlId="formUserInput">
+          <Form.Label className={styles.textFieldLabel}>Usuário</Form.Label>
+          <Form.Control
+            className={styles.textFieldControl}
+            size="lg"
+            placeholder="Usuário"
+          />
         </Form.Group>
 
-        <Form.Group className={styles.textField} controlId="formPasswordInput">
-          <Form.Control size="lg" type="password" placeholder="Senha" />
+        <Form.Group controlId="formPasswordInput">
+          <Form.Label className={styles.textFieldLabel}>Senha</Form.Label>
+          <Form.Control
+            className={styles.textFieldControl}
+            size="lg"
+            type="password"
+            placeholder="Senha"
+          />
         </Form.Group>
         <Button className={styles.submit} size="lg" type="submit">
           Entrar
