@@ -26,6 +26,7 @@
   max-height: 500px;
   width: fit-content !important;
   overflow-y: auto;
+  font-size: 1.15rem;
 
   thead {
     color: $secondary;
@@ -42,5 +43,6 @@
 }
 
 .addButton {
+  font-size: 1.25rem !important;
   width: 100%;
 }

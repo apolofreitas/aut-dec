@@ -13,23 +13,18 @@ export default function Home() {
       <Form className={styles.form} onSubmit={handleFormSubmit}>
         <Form.Group controlId="formUserInput">
           <Form.Label className={styles.textFieldLabel}>Usuário</Form.Label>
-          <Form.Control
-            className={styles.textFieldControl}
-            size="lg"
-            placeholder="Usuário"
-          />
+          <Form.Control placeholder="Usuário" />
         </Form.Group>
 
         <Form.Group controlId="formPasswordInput">
           <Form.Label className={styles.textFieldLabel}>Senha</Form.Label>
           <Form.Control
-            className={styles.textFieldControl}
-            size="lg"
+            className={styles.textField}
             type="password"
             placeholder="Senha"
           />
         </Form.Group>
-        <Button className={styles.submit} size="lg" type="submit">
+        <Button className={styles.submit} type="submit">
           Entrar
         </Button>
       </Form>

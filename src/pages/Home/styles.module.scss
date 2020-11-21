@@ -50,9 +50,9 @@
 }
 
 .cardHeader {
-  background: none;
+  background-color: transparent !important;
+  border: none !important;
   cursor: pointer;
-  border: none;
 
   display: flex;
   align-items: center;
@@ -66,8 +66,7 @@
 }
 
 .cardBody {
-  padding: 0rem 2.5rem;
-  padding-bottom: 0.6rem;
+  padding: 0.5rem 1rem !important;
 }
 
 .info {
