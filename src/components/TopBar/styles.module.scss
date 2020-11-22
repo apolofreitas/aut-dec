@@ -1,0 +1,22 @@
+@import 'src/styles/custom-bootstrap/variables.scss';
+
+.navUser {
+  display: flex;
+  text-align: right;
+  padding: 16px;
+
+  p {
+    margin: 0;
+
+    font-size: 1.1rem;
+  }
+
+  a {
+    margin: 0;
+  }
+
+  svg {
+    margin: 0 8px;
+    cursor: pointer;
+  }
+}
