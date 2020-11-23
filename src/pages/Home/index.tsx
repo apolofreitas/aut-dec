@@ -6,21 +6,11 @@ import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { AiOutlineToTop } from 'react-icons/ai'
 
 import api from 'src/services/api'
+import Pothole from 'src/interfaces/Pothole'
 
 import TopBar from 'src/components/TopBar'
 
 import styles from './styles.module.scss'
-
-interface Pothole {
-  _id: string
-  coordinates: {
-    latitude: number
-    longitude: number
-  }
-  senderIMEI: number
-  sensorDistance: number
-  info: string
-}
 
 export default function Home() {
   const [potholes, setPotholes] = useState<Pothole[]>([])

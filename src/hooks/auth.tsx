@@ -1,14 +1,8 @@
 import React, { createContext, useCallback, useState, useContext } from 'react'
 
-import api from 'src/services/api'
+import User from 'src/interfaces/User'
 
-interface User {
-  _id: string
-  name: string
-  type: string
-  email: string
-  createdAt: number
-}
+import api from 'src/services/api'
 
 interface SignInCredentials {
   email: string

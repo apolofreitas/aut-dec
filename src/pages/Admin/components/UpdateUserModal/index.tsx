@@ -9,32 +9,32 @@ import {
   Dropdown,
 } from 'react-bootstrap'
 
+import User from 'src/interfaces/User'
+
 import api from 'src/services/api'
 
 import styles from './styles.module.scss'
 
-export default function AddUserModal(
-  props: ModalProps & { onHide: () => void },
+export default function UpdateUserModal(
+  props: ModalProps & { onHide: () => void; user: User },
 ) {
-  const [name, setName] = useState('')
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [name, setName] = useState(props.user.name)
+  const [isAdmin, setIsAdmin] = useState(props.user.type === 'admin')
+  const [email, setEmail] = useState(props.user.email)
 
   async function handleSettingsSave(event: FormEvent) {
     event.preventDefault()
 
-    await api.post('user/register', {
-      name,
-      type: isAdmin ? 'admin' : 'common',
-      email,
-      password,
+    await api.put('user/update', {
+      filter: {
+        _id: props.user._id,
+      },
+      update: {
+        name,
+        type: isAdmin ? 'admin' : 'common',
+        email,
+      },
     })
-
-    setName('')
-    setIsAdmin(false)
-    setEmail('')
-    setPassword('')
 
     props.onHide()
   }
@@ -87,15 +87,6 @@ export default function AddUserModal(
               placeholder="Insira aqui o e-mail do usuário"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className={styles.textField}>
-            <Form.Label>Senha padrão</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Insira aqui a senha padrão"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
           <Button onClick={() => props.onHide()}>Cancelar</Button>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://fmm-sensor-api.herokuapp.com/',
+  baseURL: 'https://aut-dec-api.herokuapp.com/',
 })
 
 export default api

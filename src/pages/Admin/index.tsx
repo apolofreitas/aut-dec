@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
 import { HiOutlineTrash, HiPencilAlt } from 'react-icons/hi'
 
@@ -6,111 +6,34 @@ import TopBar from 'src/components/TopBar'
 import AddUserModal from './components/AddUserModal'
 import AddArduinoModal from './components/AddArduinoModal'
 
+import api from 'src/services/api'
+import User from 'src/interfaces/User'
+
 import styles from './styles.module.scss'
+import Arduino from 'src/interfaces/Arduino'
+import UpdateUserModal from './components/UpdateUserModal'
+import UpdateArduinoModal from './components/UpdateArduinoModal'
 
 export default function Admin() {
   const [showAddUserModal, setShowAddUserModal] = useState(false)
   const [showAddArduinoModal, setShowAddArduinoModal] = useState(false)
 
-  const users = [
-    {
-      name: 'nome',
-      email: 'email1@email.com',
-      createdAt: Date.now(),
-    },
-    {
-      name: 'nome nome',
-      email: 'email2@email.com',
-      createdAt: Date.now(),
-    },
-    {
-      name: 'nome nome nome',
-      email: 'email3@email.com',
-      createdAt: Date.now(),
-    },
+  const [selectedUserId, setSelectedUserId] = useState<string>()
+  const [selectedArduinoId, setSelectedArduinoId] = useState<string>()
 
-    {
-      name: 'nome',
-      email: 'email1@email.com',
-      createdAt: Date.now(),
-    },
-    {
-      name: 'nome nome',
-      email: 'email2@email.com',
-      createdAt: Date.now(),
-    },
-    {
-      name: 'nome nome nome',
-      email: 'email3@email.com',
-      createdAt: Date.now(),
-    },
+  const [users, setUsers] = useState<User[]>([])
+  const [arduinos, setArduinos] = useState<Arduino[]>([])
 
-    {
-      name: 'nome',
-      email: 'email1@email.com',
-      createdAt: Date.now(),
-    },
-    {
-      name: 'nome nome',
-      email: 'email2@email.com',
-      createdAt: Date.now(),
-    },
-    {
-      name: 'nome nome nome',
-      email: 'email3@email.com',
-      createdAt: Date.now(),
-    },
-  ]
+  const refreshStates = () => {
+    api.get('user/getAll').then(({ data: { users } }) => {
+      setUsers(users)
+    })
+    api.get('arduino/getAll').then(({ data: { arduinos } }) => {
+      setArduinos(arduinos)
+    })
+  }
 
-  const arduinos = [
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-    {
-      IMEI: 123,
-      info: 'informações do arduino',
-      createdAt: Date.now(),
-    },
-  ]
+  useEffect(refreshStates, [])
 
   return (
     <>
@@ -128,22 +51,44 @@ export default function Admin() {
               </tr>
             </thead>
             <tbody>
-              {users.map(({ name, email, createdAt }) => {
+              {users.map((user) => {
                 return (
-                  <tr>
-                    <td>{name}</td>
-                    <td>{email}</td>
-                    <td>{new Date(createdAt).toDateString()}</td>
+                  <tr key={user._id}>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{new Date(user.createdAt).toDateString()}</td>
                     <td>
                       <div className={styles.tableItemOptionContainer}>
-                        <Button className={styles.tableItemOption} size="sm">
+                        <Button
+                          className={styles.tableItemOption}
+                          size="sm"
+                          onClick={() => setSelectedUserId(user._id)}
+                        >
                           <HiPencilAlt />
                         </Button>
-                        <Button className={styles.tableItemOption} size="sm">
+                        <Button
+                          className={styles.tableItemOption}
+                          size="sm"
+                          onClick={async () => {
+                            await api.delete('user/delete', {
+                              data: { filter: { _id: user._id } },
+                            })
+                            refreshStates()
+                          }}
+                        >
                           <HiOutlineTrash />
                         </Button>
                       </div>
                     </td>
+
+                    <UpdateUserModal
+                      show={selectedUserId === user._id}
+                      user={user}
+                      onHide={() => {
+                        setSelectedUserId(undefined)
+                        refreshStates()
+                      }}
+                    />
                   </tr>
                 )
               })}
@@ -168,20 +113,42 @@ export default function Admin() {
               </tr>
             </thead>
             <tbody>
-              {arduinos.map(({ IMEI, info, createdAt }) => {
+              {arduinos.map((arduino) => {
                 return (
-                  <tr>
-                    <td>{IMEI}</td>
-                    <td>{info}</td>
-                    <td>{new Date(createdAt).toDateString()}</td>
+                  <tr key={arduino._id}>
+                    <td>{arduino.IMEI}</td>
+                    <td>{arduino.info}</td>
+                    <td>{new Date(arduino.createdAt).toDateString()}</td>
                     <td className={styles.tableItemOptionContainer}>
-                      <Button className={styles.tableItemOption} size="sm">
+                      <Button
+                        className={styles.tableItemOption}
+                        size="sm"
+                        onClick={() => setSelectedArduinoId(arduino._id)}
+                      >
                         <HiPencilAlt />
                       </Button>
-                      <Button className={styles.tableItemOption} size="sm">
+                      <Button
+                        className={styles.tableItemOption}
+                        size="sm"
+                        onClick={async () => {
+                          await api.delete('arduino/delete', {
+                            data: { filter: { _id: arduino._id } },
+                          })
+                          refreshStates()
+                        }}
+                      >
                         <HiOutlineTrash />
                       </Button>
                     </td>
+
+                    <UpdateArduinoModal
+                      show={selectedArduinoId === arduino._id}
+                      arduino={arduino}
+                      onHide={() => {
+                        setSelectedArduinoId(undefined)
+                        refreshStates()
+                      }}
+                    />
                   </tr>
                 )
               })}
@@ -197,12 +164,17 @@ export default function Admin() {
 
         <AddUserModal
           show={showAddUserModal}
-          onHide={() => setShowAddUserModal(false)}
+          onHide={() => {
+            setShowAddUserModal(false)
+            refreshStates()
+          }}
         />
-
         <AddArduinoModal
           show={showAddArduinoModal}
-          onHide={() => setShowAddArduinoModal(false)}
+          onHide={() => {
+            setShowAddArduinoModal(false)
+            refreshStates()
+          }}
         />
       </main>
     </>

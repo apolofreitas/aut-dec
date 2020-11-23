@@ -1,27 +1,30 @@
 import React, { FormEvent, useState } from 'react'
 import { Modal, Form, Button, ModalProps } from 'react-bootstrap'
 
+import Arduino from 'src/interfaces/Arduino'
+
 import api from 'src/services/api'
 
 import styles from './styles.module.scss'
 
-export default function AddArduinoModal(
-  props: ModalProps & { onHide: () => void },
+export default function UpdateArduinoModal(
+  props: ModalProps & { onHide: () => void; arduino: Arduino },
 ) {
-  const [IMEI, setImei] = useState('')
-  const [info, setInfo] = useState('')
+  const [IMEI, setImei] = useState(String(props.arduino.IMEI))
+  const [info, setInfo] = useState(props.arduino.info)
 
   async function handleSettingsSave(event: FormEvent) {
     event.preventDefault()
 
-    await api.post('arduino/register', {
-      IMEI: Number(IMEI),
-      info,
-      authorized: true,
+    await api.put('arduino/update', {
+      filter: {
+        _id: props.arduino._id,
+      },
+      update: {
+        IMEI: Number(IMEI),
+        info,
+      },
     })
-
-    setImei('')
-    setInfo('')
 
     props.onHide()
   }
