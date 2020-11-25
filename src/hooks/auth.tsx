@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useState, useContext } from 'react'
+import jwtDecode from 'jwt-decode'
 
 import User from 'src/interfaces/User'
 
@@ -27,8 +28,16 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@fmm-sensor:token')
     const user = localStorage.getItem('@fmm-sensor:user')
+    const isTokenValid =
+      token && Date.now() / 1000 <= (jwtDecode(token) as any).exp
 
-    if (token && user) {
+    if (!isTokenValid) {
+      localStorage.removeItem('@fmm-sensor:token')
+      localStorage.removeItem('@fmm-sensor:user')
+    }
+
+    if (user && token && isTokenValid) {
+      console.log((jwtDecode(token) as any).exp, Date.now() / 1000)
       api.defaults.headers.authorization = `Bearer ${token}`
 
       return { token, user: JSON.parse(user) }

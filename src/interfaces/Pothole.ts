@@ -6,5 +6,4 @@ export default interface Pothole {
   }
   senderIMEI: number
   sensorDistance: number
-  info: string
 }
