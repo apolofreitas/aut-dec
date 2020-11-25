@@ -7,6 +7,7 @@ import { AiOutlineToTop } from 'react-icons/ai'
 
 import api from 'src/services/api'
 import Pothole from 'src/interfaces/Pothole'
+import Arduino from 'src/interfaces/Arduino'
 
 import TopBar from 'src/components/TopBar'
 
@@ -14,11 +15,21 @@ import styles from './styles.module.scss'
 
 export default function Home() {
   const [potholes, setPotholes] = useState<Pothole[]>([])
+  const [arduinos, setArduinos] = useState<Arduino[]>([])
 
   useEffect(() => {
-    api
-      .get('pothole/getAll')
-      .then(({ data: { potholes } }) => setPotholes(potholes))
+    ;(async () => {
+      const {
+        data: { potholes },
+      } = await api.get('pothole/getAll')
+
+      const {
+        data: { arduinos },
+      } = await api.get('arduino/getAll')
+
+      setArduinos(arduinos)
+      setPotholes(potholes)
+    })()
   }, [])
 
   return (
@@ -36,7 +47,11 @@ export default function Home() {
                   className={styles.cardHeader}
                 >
                   <FaRegFlag size={25} />
-                  {pothole.info}
+                  {
+                    arduinos.find(
+                      (arduino) => arduino.IMEI === pothole.senderIMEI,
+                    )?.info
+                  }
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={String(index)}>
                   <Card.Body className={styles.cardBody}>
